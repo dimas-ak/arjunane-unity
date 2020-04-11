@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjunane C# for Unity</title>
+    <link rel="stylesheet" href="arjunane.min.css">
+</head>
+<body>
+    <section class="p-x">
+
+        <div class="col-mx center">
+            <h1>-=[ Arjunane.cs DEMO ]=-</h1>
+            <div class="col-mx">
+                <span>Dependency-free C# library for Unity</span>
+            </div>
+        </div>
+
+        <div class="col-mx">
+            <strong>Required:</strong>
+            <ul>
+                <li>Arjunane.cs</li>
+            </ul>
+        </div>
+
+        <div class="col-mx">
+            <strong>Tutorials</strong>
+            <ul>
+                <li><a href="#init">Init</a></li>
+                <li><a href="#get-element">Get Element</a></li>
+                <li><a href="#clone">Clone</a></li>
+                <li><a href="#web">Web</a></li>
+            </ul>
+        </div>
+
+        <div class="col-mx" id="#init">
+            <h1>Init</h1>
+            <div class="col-mx">
+                <div class="bg-w2 p-x">
+                    <pre>
+using ArjunaneLibrary;
+
+public class Main : MonoBehaviour {
+
+// Use this for initialization
+Arjunane ar = new Arjunane();
+                    </pre>
+                </div>
+            </div>
+            <div class="col-mx">
+                <strong>OR</strong>
+            </div>
+            <div class="col-mx">
+                
+                <div class="bg-w2 p-x">
+                
+                    <pre>
+public class Main : MonoBehaviour {
+
+// Use this for initialization
+ArjunaneLibrary.Arjunane ar = new ArjunaneLibrary.Arjunane();
+                                            </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="get-element">
+            <h1>Get Element</h1>
+            <div class="col-mx">
+                <span>Let's say you have Components:</span>
+                <ul>
+                    <li><strong>MainCamera</strong></li>
+                    <li><strong>Directional Light</strong></li>
+                    <li><strong>Canvas</strong></li>
+                    <ul>
+                        <li>Button_go</li>
+                        <li>Button_exit</li>
+                        <li>Buttons</li>
+                        <li>Buttons</li>
+                        <li>RawImage</li>
+                        <li><strong>Panel_main</strong></li>
+                        <li><strong>Panel</strong></li>
+                        <ul>
+                            <li>Text_username</li>
+                            <li>InputField_username</li>
+                        </ul>
+                    </ul>
+                    <li><strong>3D_object</strong></li>
+                </ul>
+            </div>
+            <div class="col-mx">
+                <h3>Click</h3>
+                <div class="col-mx">
+                    <span>Click function for your Button</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+ar.GetElem("Button_go").Click(delegate () {
+    // <i>your action</i>
+});
+                        </pre>
+                    </div>
+                </div>
+                <div class="col-mx">
+                    <span>Or if you have some buttons with same name</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+ar.GetElem("Buttons").Click(delegate () {
+    int index = ar.Index(); // <i>to get index the button of clicked</i>
+    // <i>your action</i>
+});
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>GameObjects</h3>
+                <div class="col-mx">
+                    <span>Let's say you have one UI/GameObject and you want to get the GameObject of it</span>
+                    <div class="col-mx">
+                        <div class="bg-w2 p-x">
+                            <pre>
+GameObject panel = ar.GetElem("Panel_main").SetEl(); // <i>get GameObject</i>
+RawImage panel = ar.GetElem("RawImage").RawImage(); // <i>get RawImage</i>
+InputField panel = ar.GetElem("InputField_username").InputField(); // <i>get InputField</i>
+
+<hr>OR<hr>
+
+GameObject[] panel = ar.GetElem("Panels").GameObjects(); // <i>get GameObjects</i>
+RawImage[] panel = ar.GetElem("RawImages").RawImages(); // <i>get RawImages</i>
+InputField[] panel = ar.GetElem("InputFields").InputFields(); // <i>get InputFields</i>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>ForEach</h3>
+                <div class="col-mx">
+                    <div class="col-mx">
+                        <div class="bg-w2 p-x">
+                            <pre>
+ar.GetElem("name-elem").ForEach(delegate(GameObject go, int i) {
+    // <i>Your action</i>
+});
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="clone">
+            <h1>Clone</h1>
+            <div class="col-mx">Clone GameObjects</div>
+            <div class="col-mx">
+                <div class="bg-w2 p-x">
+                    <pre>
+GameObject parent = ar.GetElem("Parent_panel").SetEl();
+GameObject child  = ar.GetElem("Child_panel").SetEl();
+
+ar.Clone(parent, child, 1);
+<hr>
+<strong>With ForEach</strong>
+GameObject parent   = ar.GetElem("Parent_panel").SetEl();
+
+ar.GetElem("Childs").ForEach(delegate(GameObject ini, int i) {
+    ar.Clone(parent, ini);
+});
+
+<hr>
+ar.Clone(
+    GameObject parent,
+    GameObject child,
+    int how_many (<i> = default is 1</i>),
+    bool world_position (<i> = default is false</i>)
+);
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="web">
+            <h1>Web</h1>
+            <div class="col-mx">
+                <strong>NOTE:</strong> <span>Please use HTTPS, because sometimes it didn't work if you use HTTP for request or Unity will show Error if you use HTTP for online request</span>
+            </div>
+            <div class="col-mx">
+                <strong>Get string from your Website</strong>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+StartCoroutine( ar.GetURL("your-url").sendWeb( delegate (string result, bool is_success, string error) {
+    if(is_success)
+    {
+        // <i>your action or convert the 'result' to JSON</i>
+    }
+    else
+    {
+        // <i>Error : your handled</i>
+    }
+}) );
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <div class="col-mx">
+                <strong>Send input POST</strong>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+InputField username = ar.GetElem("input_username").InputField();
+InputField password = ar.GetElem("input_password").InputField();
+
+var form = ar.GetURL("your_url").AddField("username", username.text)
+                                .AddField("password", password.text);
+
+<hr><strong>OR</strong><hr>
+Dictionary<<i>string</i>, <i>string</i>> dr = new Dictionary <<i>string</i>, <i>string</i>>();
+dr.Add("username", username.text);
+dr.Add("password", password.text);
+var form = ar.GetURL("your_url").AddFields(dr);
+
+<hr><strong>Send it to your Website</strong><hr>
+StartCoroutine( form.SendForm( delegate (string result, bool is_success, string error) {
+    if(is_success)
+    {
+        // <i>your action</i>
+    }
+    else
+    {
+        // <i>Error : your handled</i>
+    }
+}) );
+<hr>
+SendForm(delegate () {
+    string result,
+    bool is_success,
+    string error,
+    int time_out (<i> = Default is 60 in second(s)</i> )
+});
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-mx">
+                <strong>Load Image for RawImage</strong>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+RawImage image = ar.GetElem("RawImage_user").RawImage();
+
+StartCoroutine(
+    ar.GetURL("your-image-url").LoadImage(image)
+);
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
