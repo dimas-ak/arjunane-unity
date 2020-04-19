@@ -112,7 +112,13 @@ ar.GetElem("Buttons").Click(delegate () {
     int index = ar.Index(); // <i>to get index the button of clicked</i>
     // <i>your action</i>
 });
-                        </pre>
+
+/*
+<i><strong>NOTE</strong>
+Please set the GameObjects or Components in Order, because Unity can't sort GameObjects or Components in order.
+Below is the wrong </i>
+*/
+<ul><li>Buttons</li><li><strong>Panel</strong><ul><li>Buttons</li></ul></li><li><strong>Panel</strong><ul><li><strong>Panel</strong><ul><li>Buttons</li></ul></li></ul></li></ul></pre>
                     </div>
                 </div>
 
