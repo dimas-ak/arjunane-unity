@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+    Developed by : Dimas Awang Kusuma
+    Documentation
+        -> Online : https://dimas-ak.web.app/documentation/arjunane-unity
+        -> Offline: index.html
+*/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,92 +20,6 @@ namespace ArjunaneLibrary
     public class Arjunane
     {
         private ServerExecute server = null;
-        /*
-			HOW TO USE:
-			first = Arjunane ar = new Arjunane();
-			|| DOCUMENTATION FILE : file:///E:/Augmented%20Reality/Library%20Arjunane/documentation.html
-			===============================================================================
-											ELEMENT GAMEOBJECT
-			===============================================================================
-			=== Get element gameobject name ===
-			[FIRST-CHAIN || need string]
-			==> ar.GetElem("name_GameObject");
-
-			=== Get Index of Elements ===
-			[LAST-CHAIN || return int]
-			ar.index();
-
-			=== Get Index of Elements ===
-			[LAST-CHAIN || need int]
-			==> ar.IndexOf(index);
-			
-			=== Set Elements to Array ===
-			[LAST-CHAIN || return GameObject[] ]
-			==> ar.SetEls();
-
-			=== Set Elements to GameObject ===
-			[LAST-CHAIN || return GameObject ]
-			==> ar.SetEl();
-
-			=== Get GameObject to RawImage ===
-			[LAST-CHAIN || return RawImage ]
-			==> ar.RawImage();
-
-			=== Get GameObject to Text ===
-			[LAST-CHAIN || return Text ]
-			==> ar.Text();
-
-			=== Set GameObject Material Color ===
-			[LAST-CHAIN || need <GameObject, Color>]
-			==> ar.setMaterial(GameObject, Color);
-
-			[LAST-CHAIN] ar.click(() => {
-				=== ACTION ===
-			});
-			
-			===============================================================================
-											WEB SERVER
-			===============================================================================
-			
-			=== Get URL / LINK ===
-			[FIRST-CHAIN || need string]
-			==> ar.GetURL("your_url");
-
-			|| === Set Raw Image via URL ===
-			|| [LAST-CHAIN || need GameObject]
-			|| ==> ar.LoadImage( GameObject );
-
-			=== FORM POST ===
-			|| [CHAIN || need <string, string> ]
-			|| ==> ar.AddField( "field", "value" ); // one per one
-			|| OR
-			|| [CHAIN || need Dictionary<string, string>]
-			|| ==> ar.AddFields(dict); // all field in Dictionary
-			|| 
-			|| === FORM EXECUTE ===
-			|| [CHAIN ]
-			|| ==> ar.Form();
-			|| 
-
-			=== POST SERVER ===
-			|| === SET SERVER WEBSITE ===
-			|| [CHAIN]
-			|| ==> ar.SendWeb();
-
-			=== LAST CHAIN SERVER ===
-			|| === RESULT FROM FORM EXECUTE ===
-			|| [LAST-CHAIN || return boolean]
-			|| ==> ar.GetResultServer();
-			|| 
-			|| === SHOW ERROR FROM FORM EXECUTE ===
-			|| [LAST-CHAIN || return string]
-			|| ==> ar.ShowError();
-			|| 
-			|| === SHOW TEXT FROM FORM EXECUTE ===
-			|| [LAST-CHAIN || return string]
-			|| ==> ar.SetTextHTTP();
-		*/
-
         // Use this for initialization
         private string isServerDone = "";
         private string _elem, _url, _errorHTTP, _textHTTP;
