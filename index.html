@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arjunane C# for Unity</title>
     <link rel="stylesheet" href="arjunane.min.css">
 </head>
+
 <body>
     <section class="p-x">
 
@@ -27,7 +29,15 @@
             <strong>Tutorials</strong>
             <ul>
                 <li><a href="#init">Init</a></li>
-                <li><a href="#get-element">Get Element</a></li>
+                <li><a href="#get-element">Get Game Object(s)</a></li>
+                <li><a href="#find">Find</a></li>
+                <li><a href="#click">Click</a></li>
+                <li><a href="#foreach">ForEach</a></li>
+                <li><a href="#set-active">Set Active</a></li>
+                <li><a href="#index-of">Index Of</a></li>
+                <li><a href="#set">Set</a></li>
+                <li><a href="#color">Color From Hex</a></li>
+                <li><a href="#insert">Insert Game Object(s)</a></li>
                 <li><a href="#clone">Clone</a></li>
                 <li><a href="#web">Web</a></li>
             </ul>
@@ -51,9 +61,9 @@ Arjunane ar = new Arjunane();
                 <strong>OR</strong>
             </div>
             <div class="col-mx">
-                
+
                 <div class="bg-w2 p-x">
-                
+
                     <pre>
 public class Main : MonoBehaviour {
 
@@ -65,7 +75,7 @@ ArjunaneLibrary.Arjunane ar = new ArjunaneLibrary.Arjunane();
         </div>
 
         <div class="col-mx" id="get-element">
-            <h1>Get Element</h1>
+            <h1>Get Game Object</h1>
             <div class="col-mx">
                 <span>Let's say you have some Components:</span>
                 <ul>
@@ -89,69 +99,226 @@ ArjunaneLibrary.Arjunane ar = new ArjunaneLibrary.Arjunane();
                 </ul>
             </div>
             <div class="col-mx">
-                <h3>Click</h3>
+                <h3>Get</h3>
                 <div class="col-mx">
-                    <span>Click function for your Button</span>
+                    <span>Get Your game object</span>
                 </div>
                 <div class="col-mx">
                     <div class="bg-w2 p-x">
                         <pre>
-ar.GetElem("Button_go").Click(delegate () {
-    // <i>your action</i>
-});
+var panel_main = ar.Get("Panel_main");
+
+panel_main.GameObject; <i>// to get Game Object</i>
+
+var buttons = ar.Get("Buttons");
+
+buttons.GameObjects; <i>// to get all Game Objects</i>
+<i>// <strong>NOTE</strong>: if you use <strong>buttons.GameObject</strong> instead of <strong>GameObjects</strong>, it will catch first GameObject of (from example) Buttons</i>
                         </pre>
                     </div>
                 </div>
                 <div class="col-mx">
-                    <span>Or if you have some buttons with same name</span>
+                    <span>Set your GameObject(s)</span>
                 </div>
                 <div class="col-mx">
                     <div class="bg-w2 p-x">
                         <pre>
-ar.GetElem("Buttons").Click(delegate () {
-    int index = ar.Index(); // <i>to get index the button of clicked</i>
+public class Example : MonoBehaviour
+{
+    public GameObject   _gameObject;
+    public GameObject[] _gameObjects;
+
+    void <strong>Start</strong>()
+    {
+        ar.Get(_gameObject);
+        ar.Get(_gameObjects);
+    }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="find">
+            <h1>Find</h1>
+            <div class="col-mx">
+                <span>Find your GameObject(s):</span>
+            </div>
+            <div class="col-mx">
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+var panel = ar.Get("Panel");
+panel.Find("Text_username");
+                        </pre>
+                    </div>
+                </div>
+                <div class="col-mx">
+                    <span>Set your GameObject(s) to find Your GameObject(s)</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+public class Example : MonoBehaviour
+{
+    public GameObject _parentGameObject;
+
+    void <strong>Start</strong>()
+    {
+        var find = ar.Find(_parentGameObject, "Text_password");
+    }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="click">
+            <h1>Click</h1>
+
+            <div class="col-mx">
+                <div class="col-mx">
+                    <span>Give listener to your Button(s)</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+
+ar.Get("Buttons").Click( () => {
     // <i>your action</i>
+    int index = ar.Index;
 });
-
-/*
-<i><strong>NOTE</strong>
-Please set the GameObjects or Components in Order, because Unity can't sort GameObjects or Components in order.
-Below is the wrong </i>
-*/
-<ul><li>Buttons</li><li><strong>Panel</strong><ul><li>Buttons</li></ul></li><li><strong>Panel</strong><ul><li><strong>Panel</strong><ul><li>Buttons</li></ul></li></ul></li></ul></pre>
+                </pre>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <h3>GameObjects</h3>
+        <div class="col-mx" id="foreach">
+            <h1>ForEach</h1>
+
+            <div class="col-mx">
                 <div class="col-mx">
-                    <span>Let's say you have one UI/GameObject and you want to get the GameObject of it</span>
-                    <div class="col-mx">
-                        <div class="bg-w2 p-x">
-                            <pre>
-GameObject panel = ar.GetElem("Panel_main").SetEl(); // <i>get GameObject</i>
-RawImage panel = ar.GetElem("RawImage").RawImage(); // <i>get RawImage</i>
-InputField panel = ar.GetElem("InputField_username").InputField(); // <i>get InputField</i>
+                    <span>Looping your GameObjects</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
 
-<hr>OR<hr>
-
-GameObject[] panel = ar.GetElem("Panels").GameObjects(); // <i>get GameObjects</i>
-RawImage[] panel = ar.GetElem("RawImages").RawImages(); // <i>get RawImages</i>
-InputField[] panel = ar.GetElem("InputFields").InputFields(); // <i>get InputFields</i>
-                            </pre>
-                        </div>
+var panels = ar.Get("Panel");
+panels.ForEach( (go, i) => {
+    GameObject gameObject = go;
+    int index = i;
+});
+                        </pre>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <h3>ForEach</h3>
+        <div class="col-mx" id="set-active">
+            <h1>Set Active</h1>
+
+            <div class="col-mx">
                 <div class="col-mx">
-                    <div class="col-mx">
-                        <div class="bg-w2 p-x">
-                            <pre>
-ar.GetElem("name-elem").ForEach(delegate(GameObject go, int i) {
-    // <i>Your action</i>
-});
-                            </pre>
-                        </div>
+                    <span>Set visible to your GameObject(s)</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+
+var panels = ar.Get("Panel");
+panels.SetActive(false);
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="index-of">
+            <h1>Index Of</h1>
+
+            <div class="col-mx">
+                <div class="col-mx">
+                    <span>Get a GameObject for certain index</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+int index = 5;
+var panels = ar.Get("Panel");
+panels.IndexOf(index).GameObject;
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="set">
+            <h1>Set</h1>
+
+            <div class="col-mx">
+                <div class="col-mx">
+                    <span>Method <strong>Set</strong> is used to Get Component of the Game Object</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+ar.Get("Panels").Animator(); <i>// get component <strong>Animator</strong> and return it</i>
+ar.Get("Username_field").InputField(); <i>// get component <strong>Input Field</strong> and return it</i>
+ar.Get("User_RawImage").RawImage(); <i>// get component <strong>Raw Image</strong> and return it</i>
+ar.Get("User_text").Text(); <i>// get component <strong>Text</strong> and return it</i>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="color">
+            <h1>Color From Hex</h1>
+
+            <div class="col-mx">
+                <div class="col-mx">
+                    <span>Method <strong>ColorFromHex</strong> is used to set color from Hex (string)</span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+Color white_color = ar.ColorFromHex("#FFFFFF");
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-mx" id="insert">
+            <h1>Insert Game Object(s)</h1>
+
+            <div class="col-mx">
+                <div class="col-mx">
+                    <span>Insert or add your <strong>prefab(s)</strong></span>
+                </div>
+                <div class="col-mx">
+                    <div class="bg-w2 p-x">
+                        <pre>
+public class Example : MonoBehaviour
+{
+    public GameObject prefabGameObject;
+    public GameObject[] prefabGameObjects = new GameObject[10];
+
+    void Start()
+    {
+        var position = new Vector3(0,0,0);
+        ar.InsertGameObject(prefabGameObject, position, Quaternion.identity);
+
+        ar.Get(prefabGameObjects).ForEach( (go, i) => {
+            ar.InsertGameObject(go, position, Quaternion.identity);
+        });
+    }
+}
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -163,15 +330,15 @@ ar.GetElem("name-elem").ForEach(delegate(GameObject go, int i) {
             <div class="col-mx">
                 <div class="bg-w2 p-x">
                     <pre>
-GameObject parent = ar.GetElem("Parent_panel").SetEl();
-GameObject child  = ar.GetElem("Child_panel").SetEl();
+var parent = ar.Get("Parent_panel").GameObject;
+var child  = ar.Get("Child_panel").GameObject;
 
 ar.Clone(parent, child, 1);
 <hr>
 <strong>With ForEach</strong>
-GameObject parent   = ar.GetElem("Parent_panel").SetEl();
+GameObject parent   = ar.Get("Parent_panel").SetEl();
 
-ar.GetElem("Childs").ForEach(delegate(GameObject ini, int i) {
+ar.Get("Childs").ForEach(delegate(GameObject ini, int i) {
     ar.Clone(parent, ini);
 });
 
@@ -182,7 +349,7 @@ ar.Clone(
     int how_many (<i> = default is 1</i>),
     bool world_position (<i> = default is false</i>)
 );
-                    </pre>
+            </pre>
                 </div>
             </div>
         </div>
@@ -197,7 +364,7 @@ ar.Clone(
                 <div class="col-mx">
                     <div class="bg-w2 p-x">
                         <pre>
-StartCoroutine( ar.GetURL("your-url").sendWeb( delegate (string result, bool is_success, string error) {
+StartCoroutine( ar.GetURL("your-url").sendWebRequest( (result, is_success, error) => {
     if(is_success)
     {
         // <i>your action or convert the 'result' to JSON</i>
@@ -207,7 +374,7 @@ StartCoroutine( ar.GetURL("your-url").sendWeb( delegate (string result, bool is_
         // <i>Error : your handled</i>
     }
 }) );
-                        </pre>
+                </pre>
                     </div>
                 </div>
             </div>
@@ -216,11 +383,11 @@ StartCoroutine( ar.GetURL("your-url").sendWeb( delegate (string result, bool is_
                 <div class="col-mx">
                     <div class="bg-w2 p-x">
                         <pre>
-InputField username = ar.GetElem("input_username").InputField();
-InputField password = ar.GetElem("input_password").InputField();
+InputField username = ar.Get("input_username").InputField();
+InputField password = ar.Get("input_password").InputField();
 
 var form = ar.GetURL("your_url").AddField("username", username.text)
-                                .AddField("password", password.text);
+                        .AddField("password", password.text);
 
 <hr><strong>OR</strong><hr>
 Dictionary<<i>string</i>, <i>string</i>> dr = new Dictionary <<i>string</i>, <i>string</i>>();
@@ -229,24 +396,24 @@ dr.Add("password", password.text);
 var form = ar.GetURL("your_url").AddFields(dr);
 
 <hr><strong>Send it to your Website</strong><hr>
-StartCoroutine( form.SendForm( delegate (string result, bool is_success, string error) {
+StartCoroutine( form.SendForm( (result, is_success, error) => {
     if(is_success)
     {
         // <i>your action</i>
     }
     else
     {
-        // <i>Error : your handled</i>
+    // <i>Error : your handled</i>
     }
 }) );
 <hr>
-SendForm(delegate () {
+SendForm( () => {
     string result,
     bool is_success,
     string error,
     int time_out (<i> = Default is 60 in second(s)</i> )
 });
-                        </pre>
+                </pre>
                     </div>
                 </div>
             </div>
@@ -256,16 +423,17 @@ SendForm(delegate () {
                 <div class="col-mx">
                     <div class="bg-w2 p-x">
                         <pre>
-RawImage image = ar.GetElem("RawImage_user").RawImage();
+var image = ar.Get("RawImage_user").GameObject;
 
 StartCoroutine(
-    ar.GetURL("your-image-url").LoadImage(image)
+    ar.GetURL("your-image-url").LoadImageRequest(image)
 );
-                        </pre>
+                </pre>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </body>
+
 </html>
